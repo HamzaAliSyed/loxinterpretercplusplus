@@ -15,8 +15,13 @@ const char PLUS = '+';
 const char MINUS = '-';
 const char STAR = '*';
 const char DIVIDE = '/';
+const char EQUAL = '=';
+const char BANG = '!';
+
 
 int main(int argc, char* argv[]) {
+	int lineNumber = 1;
+	bool hasError = false;
 	std::cerr << "Logs from Interperters will be displayed here" << std::endl;
 	if (argc < 3) {
 		std::cerr << "Usage: " << argv[0] << " tokenize " << std::endl;
@@ -44,7 +49,8 @@ int main(int argc, char* argv[]) {
 		//Try it with reference later.
 		//Use auto
 
-		for (char individualCharacters : fileContents) {
+		for (int index = 0; index < fileContents.size(); index++) {
+			char individualCharacters = fileContents[index];
 			switch (individualCharacters) {
 			case LEFT_PARENTHESIS:
 				std::cout << "LEFT_PAREN ( null" << std::endl;
@@ -68,11 +74,36 @@ int main(int argc, char* argv[]) {
 				std::cout << "STAR * null" << std::endl;
 			case DIVIDE:
 				std::cout << "DIVIDE / null" << std::endl;
+			case EQUAL:
+				if (index + 1 < fileContents.size() && fileContents[index + 1] == '=') {
+					std::cout << "EQUAL_EQUAL == null" << std::endl;
+					index++;
+				}
+				else
+				{
+					std::cout << "EQUAL = null" << std::endl;
+				}
+			case BANG:
+				if (index + 1 < fileContents.size() && fileContents[index + 1] == '=') {
+					std::cout << "BANG_EQUAL != null" << std::endl;
+					index++;
+				} 
+				else 
+				{
+					std::cout << "BANG ! null" << std::endl;
+				}
+			default:
+				std::cerr << "[line " << lineNumber << "] Error: Unexpected character : " << individualCharacters << std::endl;
+				hasError = true;
 			}
 			
 		}
 
 		std::cout << "EOF  null" << std::endl;
+
+		if (hasError) {
+			std::exit(65);
+		}
 				
 
 	} catch(const std::exception& readException) {
