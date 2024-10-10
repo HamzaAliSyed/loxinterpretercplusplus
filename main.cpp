@@ -17,6 +17,8 @@ const char STAR = '*';
 const char DIVIDE = '/';
 const char EQUAL = '=';
 const char BANG = '!';
+const char LESSER = '<';
+const char GREATER = '>';
 
 
 int main(int argc, char* argv[]) {
@@ -73,7 +75,16 @@ int main(int argc, char* argv[]) {
 			case STAR:
 				std::cout << "STAR * null" << std::endl;
 			case DIVIDE:
-				std::cout << "DIVIDE / null" << std::endl;
+				if (index < fileContents.size() && fileContents[index + 1] == '/') {
+					while (index < fileContents.size() && fileContents[index] != '\n') {
+						index++;
+					}
+					lineNumber++;
+				}
+				else
+				{
+					std::cout << "SLASH / null" << std::endl;
+				}
 			case EQUAL:
 				if (index + 1 < fileContents.size() && fileContents[index + 1] == '=') {
 					std::cout << "EQUAL_EQUAL == null" << std::endl;
@@ -92,6 +103,26 @@ int main(int argc, char* argv[]) {
 				{
 					std::cout << "BANG ! null" << std::endl;
 				}
+			case LESSER:
+				if (index + 1 < fileContents.size() && fileContents[index + 1] == '=') {
+					std::cout << "LESS_EQUAL <= null" << std::endl;
+					index++;
+				}
+				else
+				{
+					std::cout << "LESS < null" << std::endl;
+				}
+			case GREATER:
+				if (index + 1 < fileContents.size() && fileContents[index + 1] == '=') {
+					std::cout << "GREATER_EQUAL >= null" << std::endl;
+					index++;
+				}
+				else
+				{
+					std::cout << "GREATER > null" << std::endl;
+				}
+			case ' ':
+			case '\t':
 			default:
 				std::cerr << "[line " << lineNumber << "] Error: Unexpected character : " << individualCharacters << std::endl;
 				hasError = true;
