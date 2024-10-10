@@ -4,6 +4,18 @@
 #include <sstream>
 #include <string>
 
+const char LEFT_PARENTHESIS = '(';
+const char RIGHT_PARENTHESIS = ')';
+const char LEFT_BRACES = '{';
+const char RIGHT_BRACES = '}';
+const char DOT = '.';
+const char COMMA = ',';
+const char SEMICOLON = ';';
+const char PLUS = '+';
+const char MINUS = '-';
+const char STAR = '*';
+const char DIVIDE = '/';
+
 int main(int argc, char* argv[]) {
 	std::cerr << "Logs from Interperters will be displayed here" << std::endl;
 	if (argc < 3) {
@@ -29,12 +41,39 @@ int main(int argc, char* argv[]) {
 		buffer << file.rdbuf();
 		fileContents = buffer.str();
 
-		if (!fileContents.empty()) {
-			throw std::runtime_error("Scanner not implemented");
+		//Try it with reference later.
+		//Use auto
+
+		for (char individualCharacters : fileContents) {
+			switch (individualCharacters) {
+			case LEFT_PARENTHESIS:
+				std::cout << "LEFT_PAREN ( null" << std::endl;
+			case RIGHT_PARENTHESIS: 
+				std::cout << "RIGHT_PAREN ) null" << std::endl;
+			case LEFT_BRACES:
+				std::cout << "LEFT_BRACE { null" << std::endl;
+			case RIGHT_BRACES:
+				std::cout << "RIGHT_BRACE } null" << std::endl;
+			case DOT:
+				std::cout << "DOT . null" << std::endl;
+			case COMMA:
+				std::cout << "COMMA , null" << std::endl;
+			case SEMICOLON:
+				std::cout << "SEMICOLON ; null" << std::endl;
+			case PLUS:
+				std::cout << "PLUS + null" << std::endl;
+			case MINUS:
+				std::cout << "MINUS - null" << std::endl;
+			case STAR:
+				std::cout << "STAR * null" << std::endl;
+			case DIVIDE:
+				std::cout << "DIVIDE / null" << std::endl;
+			}
+			
 		}
-		else {
-			std::cout << "EOF  null" << std::endl;
-		}
+
+		std::cout << "EOF  null" << std::endl;
+				
 
 	} catch(const std::exception& readException) {
 		std::cerr << "Error reading file: " << readException.what() << std::endl;
